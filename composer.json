@@ -1,0 +1,24 @@
+{
+    "name": "mf/callback-parser",
+    "description": "PHP parser for arrow functions",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Petr Chromec",
+            "email": "mortal_flesh@seznam.cz"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "MF\\Parser\\": "src"
+        }
+    },
+    "require": {
+        "php": ">=5.5 || ~7.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^4.7",
+        "satooshi/php-coveralls": "^1.0"
+    }
+}
