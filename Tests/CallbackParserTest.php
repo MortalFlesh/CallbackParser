@@ -1,6 +1,6 @@
 <?php
 
-namespace MF\Parser\Tests;
+namespace MF\Tests;
 
 use MF\Parser\CallbackParser;
 
