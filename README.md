@@ -1,8 +1,8 @@
 CallbackParser
 ==============
 
-
-
+[![Build Status](https://travis-ci.org/MortalFlesh/CallbackParser.svg?branch=master)](https://travis-ci.org/MortalFlesh/CallbackParser)
+[![Coverage Status](https://coveralls.io/repos/github/MortalFlesh/CallbackParser/badge.svg?branch=master)](https://coveralls.io/github/MortalFlesh/CallbackParser?branch=master)
 
 PHP parser for arrow functions
 
