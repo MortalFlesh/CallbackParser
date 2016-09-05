@@ -3,6 +3,8 @@ CallbackParser
 
 [![Build Status](https://travis-ci.org/MortalFlesh/CallbackParser.svg?branch=master)](https://travis-ci.org/MortalFlesh/CallbackParser)
 [![Coverage Status](https://coveralls.io/repos/github/MortalFlesh/CallbackParser/badge.svg?branch=master)](https://coveralls.io/github/MortalFlesh/CallbackParser?branch=master)
+[![Total Downloads](https://img.shields.io/packagist/dt/mf/callback-parser.svg)](https://packagist.org/packages/mf/callback-parser)
+[![License](https://img.shields.io/packagist/l/mf/callback-parser.svg)](https://packagist.org/packages/mf/callback-parser)
 
 PHP parser for arrow functions
 
@@ -19,15 +21,7 @@ PHP parser for arrow functions
 
 ## <a name="installation"></a>Installation:
 ```
-//composer.json
-{
-    "require": {
-        "mf/callback-parser": "^1.0"
-    },
-}
-
-// console
-composer install
+composer require mf/callback-parser
 ```
 
 
