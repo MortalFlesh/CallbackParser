@@ -1,6 +1,7 @@
 CallbackParser
 ==============
 
+[![Latest Stable Version](https://img.shields.io/packagist/v/mf/callback-parser)](https://packagist.org/packages/mf/callback-parser)
 [![Build Status](https://travis-ci.org/MortalFlesh/CallbackParser.svg?branch=master)](https://travis-ci.org/MortalFlesh/CallbackParser)
 [![Coverage Status](https://coveralls.io/repos/github/MortalFlesh/CallbackParser/badge.svg?branch=master)](https://coveralls.io/github/MortalFlesh/CallbackParser?branch=master)
 [![Total Downloads](https://img.shields.io/packagist/dt/mf/callback-parser.svg)](https://packagist.org/packages/mf/callback-parser)
