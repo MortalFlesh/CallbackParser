@@ -22,14 +22,8 @@ PHP parser for arrow functions
 //composer.json
 {
     "require": {
-        "mf/callback-parser": "dev-master"
+        "mf/callback-parser": "^1.0"
     },
-    "repositories": [
-        {
-            "type": "vcs",
-            "url":  "https://github.com/MortalFlesh/CallbackParser.git"
-        }
-    ]
 }
 
 // console
