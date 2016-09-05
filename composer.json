@@ -1,5 +1,6 @@
 {
     "name": "mf/callback-parser",
+    "version": "1.0.0",
     "description": "PHP parser for arrow functions",
     "type": "library",
     "license": "MIT",
@@ -11,11 +12,12 @@
     ],
     "autoload": {
         "psr-4": {
-            "MF\\": ""
+            "MF\\Parser\\": "src",
+            "MF\\Tests\\": "Tests"
         }
     },
     "require": {
-        "php": ">=5.5 || ~7.0"
+        "php": ">=5.5 || >=7.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^4.7",
