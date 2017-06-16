@@ -4,7 +4,7 @@
 ## Unreleased
 - Add Assertion
 - PhpUnit updated
-- BC: Drop PHP 5 support
+- BC: Drop PHP 5 support, 7.1 Required
 
 ### Added
 - packigist icons to readme

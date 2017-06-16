@@ -18,7 +18,7 @@ PHP parser for arrow functions
 - [80:20 - Simple](#80-20)
 
 ## <a name="requirements"></a>Requirements
-- PHP 5.5
+- PHP 7.1
 - `eval()` function for parsing [Arrow Functions](#arrow-functions)
 
 
