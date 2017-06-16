@@ -1,6 +1,6 @@
 {
     "name": "mf/callback-parser",
-    "version": "1.0.1",
+    "version": "2.0.0",
     "description": "PHP parser for arrow functions",
     "type": "library",
     "license": "MIT",
