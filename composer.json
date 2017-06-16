@@ -12,7 +12,11 @@
     ],
     "autoload": {
         "psr-4": {
-            "MF\\Parser\\": "src",
+            "MF\\Parser\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
             "MF\\Tests\\": "Tests"
         }
     },
