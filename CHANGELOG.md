@@ -5,6 +5,8 @@
 - Add Assertion
 - PhpUnit updated
 - BC: Drop PHP 5 support, 7.1 Required
+- Add codehealth dependencies
+- PHP 7.1 types added
 
 ### Added
 - packigist icons to readme

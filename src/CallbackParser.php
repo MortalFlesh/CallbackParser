@@ -16,7 +16,7 @@ class CallbackParser
      * @param string|callable $func
      * @return callable
      */
-    public function parseArrowFunction($func)
+    public function parseArrowFunction($func): callable
     {
         if (is_callable($func)) {
             return $func;
@@ -46,10 +46,7 @@ class CallbackParser
         return $callback;
     }
 
-    /**
-     * @param array $params
-     */
-    private function assertParamsSyntax(array $params)
+    private function assertParamsSyntax(array $params): void
     {
         foreach (array_filter($params) as $param) {
             Assertion::regex($param, self::PARAM_REGEX, 'Params are not in right format');
