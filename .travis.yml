@@ -1,6 +1,5 @@
 language: php
 php:
-    - '7.0'
     - '7.1'
 
 install:
@@ -10,7 +9,7 @@ before-script:
     - mkdir -p code-coverage
 
 script:
-    - phpunit --configuration phpunit.xml.dist
+    - composer test
 
 after_success:
     - travis_retry php vendor/bin/coveralls -v

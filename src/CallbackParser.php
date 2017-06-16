@@ -16,7 +16,7 @@ class CallbackParser
      * @param string|callable $func
      * @return callable
      */
-    public function parseArrowFunction($func)
+    public function parseArrowFunction($func): callable
     {
         if (is_callable($func)) {
             return $func;
@@ -37,19 +37,16 @@ class CallbackParser
         $functionBody = trim(trim($parts[1], '; {}'), '; ');  // '$a + $b'
 
         if (strpos($functionBody, 'return') === false) {
-            $functionString = sprintf('$callback = function(%s){return %s;};', implode(',', $params), $functionBody);
+            $callback = sprintf('$callback = function(%s){return %s;};', implode(',', $params), $functionBody);
         } else {
-            $functionString = sprintf('$callback = function(%s){%s;};', implode(',', $params), $functionBody);
+            $callback = sprintf('$callback = function(%s){%s;};', implode(',', $params), $functionBody);
         }
-        eval($functionString);
+        eval($callback);
 
         return $callback;
     }
 
-    /**
-     * @param array $params
-     */
-    private function assertParamsSyntax(array $params)
+    private function assertParamsSyntax(array $params): void
     {
         foreach (array_filter($params) as $param) {
             Assertion::regex($param, self::PARAM_REGEX, 'Params are not in right format');
