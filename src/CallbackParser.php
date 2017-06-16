@@ -2,6 +2,9 @@
 
 namespace MF\Parser;
 
+use Assert\Assert;
+use Assert\Assertion;
+
 class CallbackParser
 {
     const FUNCTION_REGEX = '#^\(([A-z0-9, \$]*?){1}\)[ ]?\=\>[ ]?(.{1,})$#u';
@@ -19,10 +22,12 @@ class CallbackParser
             return $func;
         }
 
-        $this->assertString($func);
+        Assert::that($func)
+            ->string('Array function has to be string')
+            ->notEmpty('Array function has to be not-empty string');
 
         $func = trim($func);
-        $this->assertSyntax($func);
+        Assertion::regex($func, self::FUNCTION_REGEX, 'Array function is not in right format');
 
         $parts = explode(self::ARRAY_FUNCTION_OPERATOR, $func, 2);  // ['($a, $b)', '$a + $b']
         $params = explode(self::ARGUMENT_SEPARATOR, str_replace(['(', ')', ' '], '', $parts[0]));   // ['$a', '$b']
@@ -42,34 +47,12 @@ class CallbackParser
     }
 
     /**
-     * @param string $string
-     */
-    private function assertString($string)
-    {
-        if (!is_string($string) || empty($string)) {
-            throw new \InvalidArgumentException('Array function has to be string');
-        }
-    }
-
-    /**
-     * @param string $string
-     */
-    private function assertSyntax($string)
-    {
-        if (!preg_match(self::FUNCTION_REGEX, $string)) {
-            throw new \InvalidArgumentException('Array function is not in right format');
-        }
-    }
-
-    /**
      * @param array $params
      */
     private function assertParamsSyntax(array $params)
     {
-        foreach ($params as $param) {
-            if (!empty($param) && !preg_match(self::PARAM_REGEX, $param)) {
-                throw new \InvalidArgumentException('Params are not in right format');
-            }
+        foreach (array_filter($params) as $param) {
+            Assertion::regex($param, self::PARAM_REGEX, 'Params are not in right format');
         }
     }
 }

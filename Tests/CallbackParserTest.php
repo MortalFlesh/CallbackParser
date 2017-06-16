@@ -2,10 +2,12 @@
 
 namespace MF\Tests;
 
+use Assert\InvalidArgumentException;
 use MF\Parser\CallbackParser;
 use MF\Tests\Fixtures\SimpleEntity;
+use PHPUnit\Framework\TestCase;
 
-class CallbackParserTest extends \PHPUnit_Framework_TestCase
+class CallbackParserTest extends TestCase
 {
     /** @var CallbackParser */
     private $callbackParser;
@@ -22,7 +24,7 @@ class CallbackParserTest extends \PHPUnit_Framework_TestCase
      */
     public function testShouldThrowExceptionWhenArrayFuncIsNotRight($func)
     {
-        $this->setExpectedException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $this->callbackParser->parseArrowFunction($func);
     }
