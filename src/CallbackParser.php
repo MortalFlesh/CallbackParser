@@ -37,11 +37,11 @@ class CallbackParser
         $functionBody = trim(trim($parts[1], '; {}'), '; ');  // '$a + $b'
 
         if (strpos($functionBody, 'return') === false) {
-            $functionString = sprintf('$callback = function(%s){return %s;};', implode(',', $params), $functionBody);
+            $callback = sprintf('$callback = function(%s){return %s;};', implode(',', $params), $functionBody);
         } else {
-            $functionString = sprintf('$callback = function(%s){%s;};', implode(',', $params), $functionBody);
+            $callback = sprintf('$callback = function(%s){%s;};', implode(',', $params), $functionBody);
         }
-        eval($functionString);
+        eval($callback);
 
         return $callback;
     }
