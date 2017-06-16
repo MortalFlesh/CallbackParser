@@ -2,9 +2,12 @@
 
 namespace MF\Tests;
 
+use Assert\InvalidArgumentException;
 use MF\Parser\CallbackParser;
+use MF\Tests\Fixtures\SimpleEntity;
+use PHPUnit\Framework\TestCase;
 
-class CallbackParserTest extends \PHPUnit_Framework_TestCase
+class CallbackParserTest extends TestCase
 {
     /** @var CallbackParser */
     private $callbackParser;
@@ -21,7 +24,7 @@ class CallbackParserTest extends \PHPUnit_Framework_TestCase
      */
     public function testShouldThrowExceptionWhenArrayFuncIsNotRight($func)
     {
-        $this->setExpectedException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $this->callbackParser->parseArrowFunction($func);
     }
@@ -29,13 +32,14 @@ class CallbackParserTest extends \PHPUnit_Framework_TestCase
     public function invalidFuncProvider()
     {
         return [
-            ['function' => 0],
-            ['function' => '() => '],
-            ['function' => '($k, $v, $i) =>'],
-            ['function' => '(a, b) => a + b'],
-            ['function' => '$a => 2'],
-            ['function' => '$a => $a + 2;'],
-            ['function' => '($a) -> $a + 2;'],
+            'not a string' => [0],
+            'empty body' => ['() => '],
+            'empty body with paramters' => ['($k, $v, $i) =>'],
+            'syntax error - invalid variables' => ['(a, b) => a + b'],
+            'missing bracers - constant' => ['$a => 2'],
+            'missing bracers' => ['$a => $a + 2;'],
+            'simple arrow' => ['($a) -> $a + 2;'],
+            'named parameter' => ['(SimpleEntity $entity) => {return $entity->getId();}'],
         ];
     }
 
@@ -46,7 +50,7 @@ class CallbackParserTest extends \PHPUnit_Framework_TestCase
      *
      * @dataProvider functionProvider
      */
-    public function testShouldParseArrayFunctionWithTwoParams($function, array $args, $expected)
+    public function testShouldParseArrayFunction($function, array $args, $expected)
     {
         $callback = $this->callbackParser->parseArrowFunction($function);
 
@@ -106,6 +110,11 @@ class CallbackParserTest extends \PHPUnit_Framework_TestCase
                 'function' => '($x, $y) => {return $x;}',
                 'args' => ['x', 'y'],
                 'expected' => 'x',
+            ],
+            [
+                'function' => '($entity) => {return $entity->getId();}',
+                'args' => [new SimpleEntity(10)],
+                'expected' => 10,
             ],
         ];
     }
