@@ -2,6 +2,8 @@
 
 <!-- There is always Unreleased section on the top. Subsections (Added, Changed, Fixed, Removed) should be added as needed. -->
 ## Unreleased
+
+## 2.0.1 - 2018-06-11
 - Add test for `parse` functions given by `FQDN`
 - Add `lmc/coding-standard`
 - Rename `Tests` dir to `tests`
