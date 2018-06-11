@@ -1,0 +1,7 @@
+imports:
+    - { resource: '%vendor_dir%/lmc/coding-standard/easy-coding-standard.yaml' }
+
+parameters:
+    skip:
+        PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\ForbiddenFunctionsSniff.Found:
+            - 'src/CallbackParser.php'
