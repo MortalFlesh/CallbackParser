@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 namespace MF\Parser;
 
@@ -36,7 +36,7 @@ class CallbackParser
 
         $functionBody = trim(trim($parts[1], '; {}'), '; ');  // '$a + $b'
 
-        if (strpos($functionBody, 'return') === false) {
+        if (mb_strpos($functionBody, 'return') === false) {
             $callback = sprintf('$callback = function(%s){return %s;};', implode(',', $params), $functionBody);
         } else {
             $callback = sprintf('$callback = function(%s){%s;};', implode(',', $params), $functionBody);

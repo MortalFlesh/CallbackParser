@@ -1,10 +1,9 @@
-<?php
+<?php declare(strict_types=1);
 
-namespace MF\Tests;
+namespace MF\Parser;
 
 use Assert\InvalidArgumentException;
-use MF\Parser\CallbackParser;
-use MF\Tests\Fixtures\SimpleEntity;
+use MF\Parser\Fixtures\SimpleEntity;
 use PHPUnit\Framework\TestCase;
 
 class CallbackParserTest extends TestCase
@@ -12,24 +11,24 @@ class CallbackParserTest extends TestCase
     /** @var CallbackParser */
     private $callbackParser;
 
-    public function setUp()
+    protected function setUp(): void
     {
         $this->callbackParser = new CallbackParser();
     }
 
     /**
-     * @param string $func
+     * @param mixed $function
      *
      * @dataProvider invalidFuncProvider
      */
-    public function testShouldThrowExceptionWhenArrayFuncIsNotRight($func)
+    public function testShouldThrowExceptionWhenArrayFuncIsNotRight($function): void
     {
         $this->expectException(InvalidArgumentException::class);
 
-        $this->callbackParser->parseArrowFunction($func);
+        $this->callbackParser->parseArrowFunction($function);
     }
 
-    public function invalidFuncProvider()
+    public function invalidFuncProvider(): array
     {
         return [
             'not a string' => [0],
@@ -44,21 +43,19 @@ class CallbackParserTest extends TestCase
     }
 
     /**
-     * @param string $function
-     * @param array $args
      * @param mixed $expected
      *
      * @dataProvider functionProvider
      */
-    public function testShouldParseArrayFunction($function, array $args, $expected)
+    public function testShouldParseArrayFunction(string $function, array $args, $expected): void
     {
         $callback = $this->callbackParser->parseArrowFunction($function);
 
-        $this->assertTrue(is_callable($callback));
+        $this->assertInternalType('callable', $callback);
         $this->assertEquals($expected, call_user_func_array($callback, $args));
     }
 
-    public function functionProvider()
+    public function functionProvider(): array
     {
         return [
             [
@@ -119,7 +116,7 @@ class CallbackParserTest extends TestCase
         ];
     }
 
-    public function testShouldReturnCallableCallbackRightAway()
+    public function testShouldReturnCallableCallbackRightAway(): void
     {
         $callable = function ($a) {
             return $a;
@@ -127,7 +124,7 @@ class CallbackParserTest extends TestCase
 
         $callback = $this->callbackParser->parseArrowFunction($callable);
 
-        $this->assertTrue(is_callable($callback));
+        $this->assertInternalType('callable', $callback);
         $this->assertEquals($callable, $callback);
     }
 }

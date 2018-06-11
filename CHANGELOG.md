@@ -2,20 +2,20 @@
 
 <!-- There is always Unreleased section on the top. Subsections (Added, Changed, Fixed, Removed) should be added as needed. -->
 ## Unreleased
+- Add `lmc/coding-standard`
+- Rename `Tests` dir to `tests`
+- Update dev dependencies
 
 ## 2.0.0 - 2017-06-16
-- Add Assertion
-- PhpUnit updated
-- BC: Drop PHP 5 support, 7.1 Required
+- Add `Assertion`
+- Update `PhpUnit`
+- BC: Drop `PHP 5` support, Require `7.1`
 - Add codehealth dependencies
-- PHP 7.1 types added
-
-### Added
-- packigist icons to readme
+- Add PHP `7.1` types
+- Add packagist icons to readme
 
 ## 1.0.1
-- Readme fixed
+- Fix Readme
 
 ## 1.0.0 - 2016-09-05
-### Added
-- CHANGELOG.md file
+- Add CHANGELOG.md file
