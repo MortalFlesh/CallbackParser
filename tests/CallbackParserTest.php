@@ -3,6 +3,7 @@
 namespace MF\Parser;
 
 use Assert\InvalidArgumentException;
+use MF\Parser\Fixtures\Functions;
 use MF\Parser\Fixtures\SimpleEntity;
 use PHPUnit\Framework\TestCase;
 
@@ -126,5 +127,27 @@ class CallbackParserTest extends TestCase
 
         $this->assertInternalType('callable', $callback);
         $this->assertEquals($callable, $callback);
+    }
+
+    /** @dataProvider fqdnProvider */
+    public function testShouldNotParseArrayFunctionWhenFunctionByFQDNIsGiven(
+        string $functionFQDN,
+        string $value,
+        string $expected
+    ): void {
+        $function = $this->callbackParser->parseArrowFunction($functionFQDN);
+        $this->assertInternalType('callable', $function);
+
+        $result = $function($value);
+        $this->assertSame($expected, $result);
+    }
+
+    public function fqdnProvider(): array
+    {
+        return [
+            // function, value, expected
+            'mb_strtolower' => ['mb_strtolower', 'Hello World', 'hello world'],
+            'hello' => [Functions::hello, 'World', 'Hello World!'],
+        ];
     }
 }

@@ -18,7 +18,10 @@
     "autoload-dev": {
         "psr-4": {
             "MF\\Parser\\": "tests"
-        }
+        },
+        "files": [
+            "tests/Fixtures/functions.php"
+        ]
     },
     "require": {
         "php": "^7.1",

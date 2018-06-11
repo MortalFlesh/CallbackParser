@@ -5,3 +5,6 @@ parameters:
     skip:
         PHP_CodeSniffer\Standards\Generic\Sniffs\PHP\ForbiddenFunctionsSniff.Found:
             - 'src/CallbackParser.php'
+
+        PHP_CodeSniffer\Standards\Generic\Sniffs\NamingConventions\UpperCaseConstantNameSniff.ClassConstantNotUpperCase:
+            - 'tests/Fixtures/functions.php'
