@@ -2,6 +2,7 @@
 
 <!-- There is always Unreleased section on the top. Subsections (Added, Changed, Fixed, Removed) should be added as needed. -->
 ## Unreleased
+- Allow `beberlei/assert` library in version `^3.0`
 
 ## 2.0.1 - 2018-06-11
 - Add test for `parse` functions given by `FQDN`

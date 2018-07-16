@@ -25,7 +25,7 @@
     },
     "require": {
         "php": "^7.1",
-        "beberlei/assert": "^2.7"
+        "beberlei/assert": "^2.7 || ^3.0"
     },
     "require-dev": {
         "lmc/coding-standard": "^1.1",
