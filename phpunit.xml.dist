@@ -6,10 +6,14 @@
          colors="true"
          bootstrap="vendor/autoload.php"
 >
+    <php>
+        <!-- E_ALL = 30719 -->
+        <ini name="error_reporting" value="30719"/>
+    </php>
 
     <testsuites>
         <testsuite name="MF\Parser\CallbackParser Test Suite">
-            <directory>./tests</directory>
+            <directory>tests</directory>
         </testsuite>
     </testsuites>
 
@@ -24,9 +28,4 @@
         <log type="coverage-clover" target="./code-coverage/clover.xml"/>
         <log type="junit" target="./code-coverage/junit.xml"/>
     </logging>
-
-    <php>
-        <!-- E_ALL = 30719 -->
-        <ini name="error_reporting" value="30719"/>
-    </php>
 </phpunit>
