@@ -43,7 +43,11 @@ class CallbackParser
         }
         eval($callback);
 
-        return $callback;
+        if (is_callable($callback)) {
+            return $callback;
+        }
+
+        throw new \InvalidArgumentException('Array function is not in right format');
     }
 
     private function assertParamsSyntax(array $params): void
