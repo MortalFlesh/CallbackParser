@@ -38,6 +38,14 @@ $callback = $callbackParser->parseArrowFunction('($a, $b) => $a + $b');
 var_dump($callback(2, 3));  // int 5
 ```
 
+### With Custom Exception
+```php
+$callbackParser = new CallbackParser(App\MyCustomException::class);
+
+$callbackParser->parseArrowFunction('invalid');  // throws App\MyCustomException
+```
+
+
 ## <a name="how-does-it-work"></a>How does it work?
 - it parses function from string and evaluate it with `eval()`
 
@@ -45,7 +53,7 @@ var_dump($callback(2, 3));  // int 5
 ## <a name="wtf"></a>Possibly WTF?
 This parser can parse an arrow function into PHP to be execute as usual. 
 But this process could be a little bit more complex than just `eval` it.
-You can check `CallbackParserTest::invalidFuncProvider()` for examples.
+You can check `CallbackParserTest::provideInvalidFunction()` for examples.
 
 ### Namespaces of parameters
 For example namespace of class for given parameter type.

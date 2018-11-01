@@ -2,7 +2,7 @@
 
 namespace MF\Parser;
 
-use Assert\InvalidArgumentException;
+use MF\Parser\Fixtures\CustomException;
 use MF\Parser\Fixtures\Functions;
 use MF\Parser\Fixtures\SimpleEntity;
 use PHPUnit\Framework\TestCase;
@@ -18,35 +18,40 @@ class CallbackParserTest extends TestCase
     }
 
     /**
-     * @param mixed $function
+     * @param mixed $function invalid arrow function
      *
-     * @dataProvider invalidFuncProvider
+     * @dataProvider provideInvalidFunction
      */
-    public function testShouldThrowExceptionWhenArrayFuncIsNotRight($function): void
+    public function testShouldThrowExceptionWhenArrayFuncIsNotRight($function, string $exceptionMessage): void
     {
-        $this->expectException(InvalidArgumentException::class);
+        $this->expectException(\InvalidArgumentException::class);
+        $this->expectExceptionMessage($exceptionMessage);
 
         $this->callbackParser->parseArrowFunction($function);
     }
 
-    public function invalidFuncProvider(): array
+    public function provideInvalidFunction(): array
     {
         return [
-            'not a string' => [0],
-            'empty body' => ['() => '],
-            'empty body with paramters' => ['($k, $v, $i) =>'],
-            'syntax error - invalid variables' => ['(a, b) => a + b'],
-            'missing bracers - constant' => ['$a => 2'],
-            'missing bracers' => ['$a => $a + 2;'],
-            'simple arrow' => ['($a) -> $a + 2;'],
-            'named parameter' => ['(SimpleEntity $entity) => {return $entity->getId();}'],
+            'not a string' => [0, 'Array function has to be string'],
+            'empty string' => ['', 'Array function has to be not-empty string'],
+            'empty body' => ['() => ', 'Array function is not in right format'],
+            'empty body with paramters' => ['($k, $v, $i) =>', 'Array function is not in right format'],
+            'syntax error - invalid variables' => ['(a, b) => a + b', 'Params are not in right format'],
+            'missing bracers - constant' => ['$a => 2', 'Array function is not in right format'],
+            'missing bracers' => ['$a => $a + 2;', 'Array function is not in right format'],
+            'simple arrow' => ['($a) -> $a + 2;', 'Array function is not in right format'],
+            'named parameter' => [
+                '(SimpleEntity $entity) => {return $entity->getId();}',
+                'Params are not in right format',
+            ],
         ];
     }
 
     /**
-     * @param mixed $expected
+     * @param mixed $expected result of arrow function
      *
-     * @dataProvider functionProvider
+     * @dataProvider provideFunction
      */
     public function testShouldParseArrayFunction(string $function, array $args, $expected): void
     {
@@ -56,7 +61,7 @@ class CallbackParserTest extends TestCase
         $this->assertEquals($expected, call_user_func_array($callback, $args));
     }
 
-    public function functionProvider(): array
+    public function provideFunction(): array
     {
         return [
             [
@@ -129,7 +134,7 @@ class CallbackParserTest extends TestCase
         $this->assertEquals($callable, $callback);
     }
 
-    /** @dataProvider fqdnProvider */
+    /** @dataProvider provideFqdn */
     public function testShouldNotParseArrayFunctionWhenFunctionByFQDNIsGiven(
         string $functionFQDN,
         string $value,
@@ -142,12 +147,46 @@ class CallbackParserTest extends TestCase
         $this->assertSame($expected, $result);
     }
 
-    public function fqdnProvider(): array
+    public function provideFqdn(): array
     {
         return [
             // function, value, expected
             'mb_strtolower' => ['mb_strtolower', 'Hello World', 'hello world'],
             'hello' => [Functions::hello, 'World', 'Hello World!'],
+        ];
+    }
+
+    /** @dataProvider provideInvalidFunction */
+    public function testShouldThrowCustomException($function, string $exceptionMessage): void
+    {
+        $parser = new CallbackParser(CustomException::class);
+
+        $this->expectException(CustomException::class);
+        $this->expectExceptionMessage($exceptionMessage);
+
+        $parser->parseArrowFunction($function);
+    }
+
+    /** @dataProvider provideInvalidExceptionClass */
+    public function testShouldNotCreateCallbackParserWithInvalidCustomException(
+        string $invalidException,
+        string $expectedMessage
+    ): void {
+        $this->expectException(\LogicException::class);
+        $this->expectExceptionMessage($expectedMessage);
+
+        new CallbackParser($invalidException);
+    }
+
+    public function provideInvalidExceptionClass(): array
+    {
+        return [
+            // invalidException, expectedMessage
+            'not a class' => ['Just some string', 'Given exception class "Just some string" does not exists.'],
+            'not implements Throwable interface' => [
+                SimpleEntity::class,
+                'Given exception class must implement Throwable interface',
+            ],
         ];
     }
 }
