@@ -2,6 +2,8 @@
 
 <!-- There is always Unreleased section on the top. Subsections (Added, Changed, Fixed, Removed) should be added as needed. -->
 ## Unreleased
+- Allow `yield` in arrow function
+- Allow custom `Exception` to be thrown
 
 ## 2.0.2 - 2018-07-16
 - Allow `beberlei/assert` library in version `^3.0`
