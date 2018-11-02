@@ -70,7 +70,7 @@ class CallbackParser
 
         $functionBody = trim(trim($parts[1], '; {}'), '; ');  // '$a + $b'
 
-        $callback = mb_strpos($functionBody, 'return') === false
+        $callback = mb_strpos($functionBody, 'return') === false && mb_strpos($functionBody, 'yield') === false
             ? sprintf('$callback = function(%s){return %s;};', implode(',', $params), $functionBody)
             : sprintf('$callback = function(%s){%s;};', implode(',', $params), $functionBody);
 

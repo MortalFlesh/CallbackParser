@@ -58,7 +58,7 @@ class CallbackParserTest extends TestCase
         $callback = $this->callbackParser->parseArrowFunction($function);
 
         $this->assertInternalType('callable', $callback);
-        $this->assertEquals($expected, call_user_func_array($callback, $args));
+        $this->assertSame($expected, call_user_func_array($callback, $args));
     }
 
     public function provideFunction(): array
@@ -119,6 +119,55 @@ class CallbackParserTest extends TestCase
                 'args' => [new SimpleEntity(10)],
                 'expected' => 10,
             ],
+            [
+                'function' => '() => {return 42}',
+                'args' => [],
+                'expected' => 42,
+            ],
+        ];
+    }
+
+    /**
+     * @dataProvider provideFunctionWithGenerator
+     */
+    public function testShouldParseArrowFunctionWithGenerator(string $function, array $args, array $expected): void
+    {
+        $callback = $this->callbackParser->parseArrowFunction($function);
+
+        $this->assertInternalType('callable', $callback);
+
+        $result = [];
+        foreach (call_user_func_array($callback, $args) as $key => $value) {
+            $result[$key] = $value;
+        }
+
+        $this->assertSame($expected, $result);
+    }
+
+    public function provideFunctionWithGenerator(): array
+    {
+        return [
+            // function, args, expected
+            [
+                'function' => '() => {yield 42}',
+                'args' => [],
+                'expected' => [42],
+            ],
+            [
+                'function' => '() => { yield 42; }',
+                'args' => [],
+                'expected' => [42],
+            ],
+            [
+                'function' => '($min, $max) => {yield from range($min, $max)}',
+                'args' => [1, 5],
+                'expected' => [1, 2, 3, 4, 5],
+            ],
+            [
+                'function' => '($key, $value) => { yield $key => $value }',
+                'args' => ['foo', 'bar'],
+                'expected' => ['foo' => 'bar'],
+            ],
         ];
     }
 
@@ -131,7 +180,7 @@ class CallbackParserTest extends TestCase
         $callback = $this->callbackParser->parseArrowFunction($callable);
 
         $this->assertInternalType('callable', $callback);
-        $this->assertEquals($callable, $callback);
+        $this->assertSame($callable, $callback);
     }
 
     /** @dataProvider provideFqdn */
