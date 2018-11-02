@@ -2,6 +2,8 @@
 
 <!-- There is always Unreleased section on the top. Subsections (Added, Changed, Fixed, Removed) should be added as needed. -->
 ## Unreleased
+
+## 2.1.0 - 2018-11-02
 - Allow `yield` in arrow function
 - Allow custom `Exception` to be thrown
 
