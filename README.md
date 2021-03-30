@@ -8,6 +8,7 @@ CallbackParser
 [![License](https://img.shields.io/packagist/l/mf/callback-parser.svg)](https://packagist.org/packages/mf/callback-parser)
 
 PHP parser for arrow functions
+> This library is no longer supported, since the arrow functions are natively in PHP 7.4 - https://www.php.net/manual/en/functions.arrow.php
 
 ## Table of Contents
 - [Requirements](#requirements)
